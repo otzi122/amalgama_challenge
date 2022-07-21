@@ -1,6 +1,6 @@
 # Amalgama Challenge
 
-### Instalación
+## Instalación
 
 * run containers **docker-compose up -d**
 
@@ -15,4 +15,5 @@ docker-compose cp backup.sql db:/tmp/restore-db.sql && docker-compose exec db sh
 ma-data < /tmp/restore-db.sql;"
 
 ### Autor ✒️
+
 * **Luis J Pinto** *

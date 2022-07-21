@@ -36,7 +36,7 @@ class Amalgama_Admin
 	const FIELD_TITLES_EXTENSION = 'amalgama_titles_extension';
 
 	const LABEL_TITLES_EXTENSION = 'Titles Extension';
-	const LABEL_SAVE = 'Save Changes';
+	const LABEL_SAVE             = 'Save Changes';
 
 	const MESSAGE_SUCCESS      = '<em>Done:</em> Updated!';
 	const MESSAGE_ERROR        = '<em>Error:</em> Sorry, we couldn\'t save it';
@@ -54,7 +54,6 @@ class Amalgama_Admin
 		$this->version     = $version;
 
 		add_action('admin_menu', [$this, 'register_settings_menu_page']);
-		
 	}
 
 	/**
@@ -99,7 +98,7 @@ class Amalgama_Admin
 	{
 		$this->save_form_setting();
 
-		include __DIR__ . '/partials/amalgama-admin-display.php'; 
+		include __DIR__ . '/partials/amalgama-admin-display.php';
 	}
 
 	/**
@@ -113,12 +112,12 @@ class Amalgama_Admin
 			{
 				return;
 			}
-			
+
 			$fieldTitlesExtension = $_POST[self::FIELD_TITLES_EXTENSION] ?? null;
 
-			($error = $this->get_validation_text_error($fieldTitlesExtension) !== false) ?
-				$this->errors[self::FIELD_TITLES_EXTENSION] = $error: 
-				update_option(self::FIELD_TITLES_EXTENSION, $fieldTitlesExtension);
+			($error                                        = $this->get_validation_text_error($fieldTitlesExtension) !== false)
+				? $this->errors[self::FIELD_TITLES_EXTENSION] = $error
+				: update_option(self::FIELD_TITLES_EXTENSION, $fieldTitlesExtension);
 
 			if (count($this->errors))
 			{
@@ -142,10 +141,8 @@ class Amalgama_Admin
 
 	/**
 	 * Validate text field.
-	 *
-	 * @param  mixed $message
 	 */
-	public function get_validation_text_error(?string $text, int $min = 3,int $max = 50): bool
+	public function get_validation_text_error(?string $text, int $min = 3, int $max = 50): bool
 	{
 		if (! $text || strlen($text) == 0)
 		{

@@ -21,7 +21,7 @@
                     <?php _e(self::LABEL_TITLES_EXTENSION, $this->plugin_name); ?>*
                 </div>
                 <div class="input">
-                    <input type="text" name="<?php echo self::FIELD_TITLES_EXTENSION; ?>" id="<?php echo self::FIELD_TITLES_EXTENSION; ?>" value="<?php echo get_option(self::FIELD_TITLES_EXTENSION,''); ?>">
+                    <input type="text" name="<?php echo self::FIELD_TITLES_EXTENSION; ?>" id="<?php echo self::FIELD_TITLES_EXTENSION; ?>" value="<?php echo get_option(self::FIELD_TITLES_EXTENSION, ''); ?>">
                 </div>
             </div>
             <input type="submit" value="<?php _e(self::LABEL_SAVE, $this->plugin_name); ?>">
