@@ -44,6 +44,25 @@ class Amalgama_Public
 	{
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
+
+		add_filter('the_title', [ $this, 'add_titles_extension_to_post'], 10, 2);
+
+	}
+
+	
+	/**
+	 * Add title extension to the post title
+	 *
+	 * @param  mixed $title
+	 * @param  mixed $id
+	 * @return void
+	 */
+	public function add_titles_extension_to_post(string $title, int $id) 
+	{
+		$titleExtension = get_option(Amalgama_Admin::FIELD_TITLES_EXTENSION,'');
+		return get_post_type($id) == "post" ?
+			sprintf('%s %s', $title, $titleExtension):
+			$title;
 	}
 
 	/**
@@ -53,19 +72,6 @@ class Amalgama_Public
 	 */
 	public function enqueue_styles(): void
 	{
-
-		/*
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Amalgama_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Amalgama_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_style($this->plugin_name, plugin_dir_url(__FILE__) . 'css/amalgama-public.css', [], $this->version, 'all');
 	}
 
@@ -76,19 +82,6 @@ class Amalgama_Public
 	 */
 	public function enqueue_scripts(): void
 	{
-
-		/*
-		 * This function is provided for demonstration purposes only.
-		 *
-		 * An instance of this class should be passed to the run() function
-		 * defined in Amalgama_Loader as all of the hooks are defined
-		 * in that particular class.
-		 *
-		 * The Amalgama_Loader will then create the relationship
-		 * between the defined hooks and the functions defined in this
-		 * class.
-		 */
-
 		wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/amalgama-public.js', ['jquery'], $this->version, false);
 	}
 }
