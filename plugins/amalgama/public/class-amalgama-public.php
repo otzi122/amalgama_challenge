@@ -45,24 +45,23 @@ class Amalgama_Public
 		$this->plugin_name = $plugin_name;
 		$this->version     = $version;
 
-		add_filter('the_title', [ $this, 'add_titles_extension_to_post'], 10, 2);
-
+		add_filter('the_title', [$this, 'add_titles_extension_to_post'], 10, 2);
 	}
 
-	
 	/**
-	 * Add title extension to the post title
+	 * Add title extension to the post title.
 	 *
 	 * @param  mixed $title
 	 * @param  mixed $id
 	 * @return void
 	 */
-	public function add_titles_extension_to_post(string $title, int $id) 
+	public function add_titles_extension_to_post(string $title, int $id)
 	{
-		$titleExtension = get_option(Amalgama_Admin::FIELD_TITLES_EXTENSION,'');
-		return get_post_type($id) == "post" ?
-			sprintf('%s %s', $title, $titleExtension):
-			$title;
+		$titleExtension = get_option(Amalgama_Admin::FIELD_TITLES_EXTENSION, '');
+
+		return get_post_type($id) == 'post'
+			? sprintf('%s %s', $title, $titleExtension)
+			: $title;
 	}
 
 	/**
