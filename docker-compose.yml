@@ -1,0 +1,45 @@
+version: '3.1'
+
+services:
+
+  db:
+    image: 'mysql:8.0'
+    restart: always
+    ports:
+      - '${FORWARD_DB_PORT:-33061}:3306'
+    volumes:
+      - db-data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: '${DB_PASSWORD}'
+      MYSQL_DATABASE: '${DB_DATABASE}'
+      MYSQL_USER: '${DB_USERNAME}'
+      MYSQL_PASSWORD: '${DB_PASSWORD}'
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-p${DB_PASSWORD}"]
+      retries: 3
+      timeout: 5s
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: '${DB_HOST}'
+      WORDPRESS_DB_USER: '${DB_USERNAME}'
+      WORDPRESS_DB_PASSWORD: '${DB_PASSWORD}'
+      WORDPRESS_DB_NAME: '${DB_DATABASE}'
+    volumes:
+      - ./plugins:/var/www/html/wp-content/plugins
+    depends_on:
+      - db
+
+  dozzle:
+    image: amir20/dozzle:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - '9999:8080'
+
+volumes:
+  db-data:
